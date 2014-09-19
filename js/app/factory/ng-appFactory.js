@@ -1,3 +1,9 @@
+/*
+*
+* MAIN APPLICATION FACTORYS
+* # StorageFactory
+* # MessageFactory
+**/
 angular.module('mainAppFactory', [])
 .factory('StorageFactory', function () {
     var scopestor = {
