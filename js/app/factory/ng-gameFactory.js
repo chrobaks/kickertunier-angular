@@ -1,10 +1,26 @@
 if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp != "undefined"){
     GLOBAL__VARS__APP.mainApp.factory('GameFactory',[
+        'StorageFactory',
         'MessageFactory',
-        function (MessageFactory) {
-            
-            var set_gridOptions = function (scope) {
-                scope.gridOptionsGame = { 
+        function (StorageFactory, MessageFactory) {
+            // STORE Game SCOPE
+            var factoryScope = {};
+            /**
+            * get_checkTeamNotDiff
+            *
+            * @returns boolean if team_1.teamname is not same team_2.teamname than false
+            */
+            var get_checkTeamNotDiff = function () {
+                return (factoryScope.game.team_1.teamname===factoryScope.game.team_2.teamname);
+            }
+            /**
+            * set_gridOptions
+            *
+            * @description set ng-grid gridOptionsTeam
+            * @returns void
+            */
+            var set_gridOptions = function () {
+                factoryScope.gridOptionsGame = { 
                     data: 'gameData',
                     showGroupPanel: false,
                     columnDefs: [
@@ -17,49 +33,78 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                     ]
                 };
             }
-            var get_checkTeamNotDiff = function (game) {
-                return (game.team_1.teamname===game.team_2.teamname);
-            }
-            var set_addGameData = function (scope) {
+            /**
+            * set_addGameData
+            *
+            * @description set new game data
+            * @returns void
+            */
+            var set_addGameData = function () {
                 var newgame = {
-                    team_1: scope.game.team_1.teamname, 
-                    team_2: scope.game.team_2.teamname
+                    team_1: factoryScope.game.team_1.teamname, 
+                    team_2: factoryScope.game.team_2.teamname
                 };
-                scope.gameActualTeamData = angular.copy(newgame);
-                scope.game = {team_1: '', team_2: ''};
-                scope.gameIsRunning = true;
+                factoryScope.gameActualTeamData = angular.copy(newgame);
+                factoryScope.game = {team_1: '', team_2: ''};
+                factoryScope.gameIsRunning = true;
             }
-            var set_addGame = function (scope) {
+            /**
+            * set_addGame
+            *
+            * @description valided gameform and if ok run add func
+            * @returns boolean if form not valid than false
+            */
+            var set_addGame = function () {
                 var isok = true;
-                if ( ! scope.gameForm.$valid) {
+                if ( ! factoryScope.gameForm.$valid) {
                     MessageFactory.set_error("Alle Felder benötigen einen Eintrag!");
                     return false;  
                 }
-                if(get_checkTeamNotDiff(scope.game)){
+                if(get_checkTeamNotDiff()){
                     MessageFactory.set_error("Ein Spiel benötigt zwei Teams.");
-                    scope.game.team_2 = "";
+                    factoryScope.game.team_2 = "";
                     isok = false;
                 }
                 
                 if(isok){
-                    set_addGameData(scope);
+                    set_addGameData();
                 }
                 return isok;
             }
-            var set_deleteGame = function (id, scope) {
+            /**
+            * set_deleteGame
+            *
+            * @description 
+            * @returns boolean
+            */
+            var set_deleteGame = function (id) {
                 var res = [];
-                for(var e in scope.teamData){
-                    if(scope.teamData[e].id != id){
-                        res.push(scope.teamData[e]);
+                for(var e in factoryScope.gameData){
+                    if(factoryScope.gameData[e].id != id){
+                        res.push(factoryScope.gameData[e]);
                     }
                 }
-                scope.teamData = res;
-                set_gridOptions(scope);
+                factoryScope.gameData = res;
+                set_gridOptions();
+                return true;
+            }
+            /**
+            * set_init
+            *
+            * @description set default scope store
+            * @returns void
+            */
+            var set_init = function(scope){
+                factoryScope = scope;
+                factoryScope.gameTeamData = StorageFactory.get_storeTeamData();
+                set_gridOptions();
+                StorageFactory.set_storeGameScope(factoryScope);
+                factoryScope.autoId = StorageFactory.funcautoId("game");
             }
             return {
+                set_scopeInit: set_init,
                 set_scopeAddGame: set_addGame,
-                set_scopeDeleteGame: set_deleteGame,
-                set_scopeGridOptions: set_gridOptions
+                set_scopeDeleteGame: set_deleteGame
             };
         }
     ]);
