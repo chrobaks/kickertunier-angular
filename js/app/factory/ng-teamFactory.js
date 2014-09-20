@@ -1,32 +1,40 @@
 if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp != "undefined"){
     GLOBAL__VARS__APP.mainApp.factory('TeamFactory',[
+        'StorageFactory',
         'MessageFactory', 
-        function (MessageFactory) {
-            var get_checkTeamnameUnique = function (scope) {
+        function (StorageFactory, MessageFactory) {
+            // STORE TEAM SCOPE
+            var factoryScope = {};
+            /**
+            * get_checkTeamnameUnique
+            *
+            * @returns boolean if teamname not unique than false
+            */
+            var get_checkTeamnameUnique = function () {
                 var r = true;
-                if(scope.teamData.length){
-                    for(var e in scope.teamData){
-                        if(scope.teamData[e].teamname==scope.team.teamname){r=false;break;}
+                if(factoryScope.teamData.length){
+                    for(var e in factoryScope.teamData){
+                        if(factoryScope.teamData[e].teamname==factoryScope.team.teamname){r=false;break;}
                     }
                 }
                 return r;
             }
-            var get_checkPlayerNotDiff = function (team) {
-                return (team.player_1.nickname===team.player_2.nickname);
+            /**
+            * get_checkPlayerNotDiff
+            *
+            * @returns boolean if player_1.nickname is not same player_2.nickname than false
+            */
+            var get_checkPlayerNotDiff = function () {
+                return (factoryScope.team.player_1.nickname===factoryScope.team.player_2.nickname);
             }
-            var set_addTeamData = function (scope) {
-                var newteam = {
-                    teamname: scope.team.teamname, 
-                    player_1: scope.team.player_1.nickname, 
-                    player_2: scope.team.player_2.nickname, 
-                    id: scope.teamAutoId()
-                };
-                scope.teamData.push(angular.copy(newteam));
-                set_gridOptions(scope);
-                scope.team = {teamname: '', player_1: '', player_2: '', id: 0};
-            }
-            var set_gridOptions = function (scope) {
-                scope.gridOptionsTeam = { 
+            /**
+            * set_gridOptions
+            *
+            * @description set ng-grid gridOptionsTeam
+            * @returns void
+            */
+            var set_gridOptions = function () {
+                factoryScope.gridOptionsTeam = { 
                     data: 'teamData',
                     showGroupPanel: false,
                     columnDefs: [
@@ -40,42 +48,91 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                     ]
                 };
             }
-            var set_addTeam = function (scope) {
+            /**
+            * set_addTeamData
+            *
+            * @description set new team
+            * @returns void
+            */
+            var set_addTeamData = function () {
+                var newteam = {
+                    teamname: factoryScope.team.teamname, 
+                    player_1: factoryScope.team.player_1.nickname, 
+                    player_2: factoryScope.team.player_2.nickname, 
+                    id: factoryScope.autoId()
+                };
+                factoryScope.teamData.push(angular.copy(newteam));
+                set_gridOptions();
+                factoryScope.team = {teamname: '', player_1: '', player_2: '', id: 0};
+            }
+            /**
+            * set_addTeam
+            *
+            * @description valided teamform and if ok run add func
+            * @returns boolean if form not valid than false
+            */
+            var set_addTeam = function () {
                 var isok = true;
-                if ( ! scope.teamForm.$valid) {
+                if ( ! factoryScope.teamForm.$valid) {
                     MessageFactory.set_error("Alle Felder benötigen einen Eintrag!");
                     return false;  
                 }
-                if( ! get_checkTeamnameUnique(scope)){
+                if( ! get_checkTeamnameUnique()){
                     MessageFactory.set_error("Der Teamname existiert schon.");
                     isok = false;
                 }
-                if(get_checkPlayerNotDiff(scope.team)){
+                if(get_checkPlayerNotDiff()){
                     MessageFactory.set_error("Ein Team benötigt zwei Mitspieler.");
-                    scope.team.player_2 = "";
+                    factoryScope.team.player_2 = "";
                     isok = false;
                 }
                 
                 if(isok){
-                    set_addTeamData(scope);
+                    set_addTeamData();
                 }
                 return isok;
             }
-            var set_deleteTeam = function (id, scope) {
+            /**
+            * set_deleteTeam
+            *
+            * @description valided team not in a active game and if ok delete
+            * @returns boolean if team in a active game than false
+            */
+            var set_deleteTeam = function (id) {
                 var res = [];
-                
-                for(var e in scope.teamData){
-                    if(scope.teamData[e].id != id){
-                        res.push(scope.teamData[e]);
+                if(StorageFactory.get_storeCheckTeamIsInActiveGame(id)){
+                    MessageFactory.set_error("Das Team befindet sich in einem aktivem Spiel und kann nicht gelöscht werden!");
+                    return false;
+                }else{
+                    for(var e in factoryScope.teamData){
+                        if(factoryScope.teamData[e].id != id){
+                            res.push(factoryScope.teamData[e]);
+                        }
                     }
+                    factoryScope.teamData = res;
+                    set_gridOptions();
+                    StorageFactory.set_storeGameTeamDataScope(factoryScope.teamData);
+                    return true;
                 }
-                scope.teamData = res;
-                set_gridOptions(scope);
+                
+            }
+            /**
+            * set_init
+            *
+            * @description set default scope store
+            * @returns void
+            */
+            var set_init = function(scope){
+                factoryScope = scope;
+                factoryScope.teamUserData = StorageFactory.get_storeUserData();
+                set_gridOptions();
+                StorageFactory.set_storeTeamScope(scope);
+                factoryScope.autoId = StorageFactory.funcautoId("team");
             }
             return {
+                set_scopeInit: set_init,
                 set_scopeAddTeam: set_addTeam,
-                set_scopeDeleteTeam: set_deleteTeam,
-                set_scopeGridOptions: set_gridOptions
+                set_scopeDeleteTeam: set_deleteTeam
             };
         }
     ]);

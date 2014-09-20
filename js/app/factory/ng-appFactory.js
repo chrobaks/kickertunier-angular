@@ -1,6 +1,7 @@
 /*
 *
 * MAIN APPLICATION FACTORYS
+*
 * # StorageFactory
 * # MessageFactory
 **/
@@ -96,8 +97,12 @@ angular.module('mainAppFactory', [])
     }
     var set_gameTeamDataScope = function (data) {
         scopestor.gamescope.gameTeamData = data;
-        var findTeam1=(scopestor.gamescope.game.hasOwnProperty('team_1')) ? 1: 0;
-        var findTeam2=(scopestor.gamescope.game.hasOwnProperty('team_2')) ? 1: 0;
+        var findTeam1 = 0;
+        var findTeam2 = 0;
+        if(scopestor.gamescope.hasOwnProperty('game')){
+            findTeam1=(scopestor.gamescope.game.hasOwnProperty('team_1')) ? 1: 0;
+            findTeam2=(scopestor.gamescope.game.hasOwnProperty('team_2')) ? 1: 0;
+        }
         for( var m in scopestor.gamescope.gameTeamData ){
             if(findTeam1===1 && scopestor.gamescope.gameTeamData[m].teamname === scopestor.gamescope.game.team_1.teamname){
                 findTeam1=2;

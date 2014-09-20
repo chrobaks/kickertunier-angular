@@ -8,7 +8,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             $scope.headertitle = "Control User";
             // SCOPE VAR formmsg show formular messages
             $scope.formmsg = "Neuen Mitspieler speichern";
-            // SCOPE VAR userdate stores all user
+            // SCOPE VAR userdata stores all user
             $scope.userData = [
                 {nickname: 'SChrobak', firstname: 'Stefan', secondname: 'Chrobak', id: 1},
                 {nickname: 'MChrobak', firstname: 'Max', secondname: 'Chrobak', id: 2},
