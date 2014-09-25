@@ -21,6 +21,16 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             };
             // SCOPE VAR gameisrunning stores game status
             $scope.gameIsRunning = false;
+            // SCOPE VAR goalsconf stores goal item
+            $scope.goalsItemConf = [
+                {status:0,val:'1'},
+                {status:0,val:'2'},
+                {status:0,val:'3'},
+                {status:0,val:'4'},
+                {status:0,val:'5'},
+                {status:0,val:'6'},
+                {status:0,val:'7'}
+            ];
             // ADD ACTIVE GAME
             $scope.addGame = function () {
                 if(GameFactory.set_scopeAddGame()){
@@ -32,6 +42,10 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             // DELETE GAME
             $scope.deleteGame = function (id) {
                 GameFactory.set_scopeDeleteGame(id);
+            }
+            // SET GOAL
+            $scope.setGoal = function () {
+                console.log('setGoal:')
             }
             // INIT Game SCOPE
             GameFactory.set_scopeInit($scope);

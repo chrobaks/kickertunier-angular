@@ -110,8 +110,16 @@
                         <span class="formmsg" ng-bind="formmsg"></span>
                     </p>
                     <p>
+                        <div>
                         <span ng-bind-template="Team1: {{gameActualTeamData.team_1}}"></span>
+                        <div score-display></div>
+                        </div>
+                        <div>
                         <span ng-bind-template="Team2: {{gameActualTeamData.team_2}}"></span>
+                        <div score-display></div>
+                        </div>
+                        
+                        
                     </p>
                 </form>
             </div>
@@ -133,4 +141,5 @@
 <script type="text/javascript" src="js/app/factory/ng-userFactory.js"></script>
 <script type="text/javascript" src="js/app/factory/ng-teamFactory.js"></script>
 <script type="text/javascript" src="js/app/factory/ng-gameFactory.js"></script>
+<script type="text/javascript" src="js/app/directive/ng-scoreDisplayDirective.js"></script>
 </html>

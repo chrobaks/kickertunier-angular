@@ -1,7 +1,8 @@
 * {font-family: Verdana, Arial;}
-body, div {padding:0px;margin:0px;}
+body, div, ul, li {padding:0px;margin:0px;}
 label {font-weight: bold;font-size: 0.6em;}
 span.formmsg {font-weight: bold;font-size: 0.6em;}
+ul {list-style: none;}
 .floatL {float: left;}
 .floatR {float: right;}
 .clearL {clear: left;}
@@ -36,4 +37,15 @@ span.formmsg {font-weight: bold;font-size: 0.6em;}
 }
 .wrapper-box.blue-light {
     background-color: #a8dff4;
+}
+.goal-display {
+    font-size: 0.7em;
+}
+.goal-display .item{
+    float: left;
+    margin-right: 3px;
+    padding: 1px 3px 1px 3px;
+    border: 1px solid #999;
+    background-color:#fff;
+    color:#666;
 }
