@@ -48,4 +48,5 @@ ul {list-style: none;}
     border: 1px solid #999;
     background-color:#fff;
     color:#666;
+    cursor: pointer;
 }

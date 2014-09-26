@@ -42,7 +42,9 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             var set_addGameData = function () {
                 var newgame = {
                     team_1: factoryScope.game.team_1.teamname, 
-                    team_2: factoryScope.game.team_2.teamname
+                    team_2: factoryScope.game.team_2.teamname,
+                    team_1_scores: 1,
+                    team_2_scores: 0
                 };
                 factoryScope.gameActualTeamData = angular.copy(newgame);
                 factoryScope.game = {team_1: '', team_2: ''};
@@ -89,6 +91,18 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return true;
             }
             /**
+            * set_gameActualTeamData
+            *
+            * @description set goal value
+            * @returns void
+            */
+            var set_gameActualTeamData = function(obj){
+                //console.log(obj.team_id)
+                //if(factoryScope.gameActualTeamData["team_"+obj.team_id+"_scores"]*1+1===factoryScope.goalsItemConf[obj.goal_index].val*1){
+                    //factoryScope.gameActualTeamData["team_"+obj.team_id+"_scores"] = factoryScope.goalsItemConf[obj.goal_index].val;
+                //}
+            }
+            /**
             * set_init
             *
             * @description set default scope store
@@ -104,7 +118,8 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             return {
                 set_scopeInit: set_init,
                 set_scopeAddGame: set_addGame,
-                set_scopeDeleteGame: set_deleteGame
+                set_scopeDeleteGame: set_deleteGame,
+                set_sopeGameActualTeamData: set_gameActualTeamData
             };
         }
     ]);

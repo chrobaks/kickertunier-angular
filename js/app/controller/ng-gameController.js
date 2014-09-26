@@ -17,19 +17,21 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             // SCOPE VAR gameactalteamdata store activ game
             $scope.gameActualTeamData = {
                 team_1: 'Kein Team',
-                team_2: 'Kein Team'
+                team_2: 'Kein Team',
+                team_1_scores: 0,
+                team_2_scores: 0
             };
             // SCOPE VAR gameisrunning stores game status
             $scope.gameIsRunning = false;
             // SCOPE VAR goalsconf stores goal item
             $scope.goalsItemConf = [
-                {status:0,val:'1'},
-                {status:0,val:'2'},
-                {status:0,val:'3'},
-                {status:0,val:'4'},
-                {status:0,val:'5'},
-                {status:0,val:'6'},
-                {status:0,val:'7'}
+                {val:'1'},
+                {val:'2'},
+                {val:'3'},
+                {val:'4'},
+                {val:'5'},
+                {val:'6'},
+                {val:'7'}
             ];
             // ADD ACTIVE GAME
             $scope.addGame = function () {
@@ -44,8 +46,9 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 GameFactory.set_scopeDeleteGame(id);
             }
             // SET GOAL
-            $scope.setGoal = function () {
-                console.log('setGoal:')
+            $scope.setGoal = function (obj) {
+                //console.log($scope.scoreDisplayId)
+                GameFactory.set_sopeGameActualTeamData(obj);
             }
             // INIT Game SCOPE
             GameFactory.set_scopeInit($scope);
