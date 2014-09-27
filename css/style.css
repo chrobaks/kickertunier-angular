@@ -41,7 +41,7 @@ ul {list-style: none;}
 .goal-display {
     font-size: 0.7em;
 }
-.goal-display .item{
+.goal-display > .item {
     float: left;
     margin-right: 3px;
     padding: 1px 3px 1px 3px;
@@ -49,4 +49,8 @@ ul {list-style: none;}
     background-color:#fff;
     color:#666;
     cursor: pointer;
+}
+.goal-display > .item.active {
+    background-color:#99cc00;
+    color:#fff;
 }

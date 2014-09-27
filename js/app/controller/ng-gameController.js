@@ -33,6 +33,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 {val:'6'},
                 {val:'7'}
             ];
+            $scope.activeDirectiveId = '';
             // ADD ACTIVE GAME
             $scope.addGame = function () {
                 if(GameFactory.set_scopeAddGame()){
@@ -46,9 +47,8 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 GameFactory.set_scopeDeleteGame(id);
             }
             // SET GOAL
-            $scope.setGoal = function (obj) {
-                //console.log($scope.scoreDisplayId)
-                GameFactory.set_sopeGameActualTeamData(obj);
+            $scope.setGoal = function (obj, $event) {
+                GameFactory.set_sopeGameActualTeamData($event.target,obj);
             }
             // INIT Game SCOPE
             GameFactory.set_scopeInit($scope);

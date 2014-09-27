@@ -6,7 +6,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             // STORE TEAM SCOPE
             var factoryScope = {};
             /**
-            * get_checkTeamnameUnique
+            * private get_checkTeamnameUnique
             *
             * @returns boolean if teamname not unique than false
             */
@@ -20,7 +20,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return r;
             }
             /**
-            * get_checkPlayerNotDiff
+            * private get_checkPlayerNotDiff
             *
             * @returns boolean if player_1.nickname is not same player_2.nickname than false
             */
@@ -28,7 +28,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return (factoryScope.team.player_1.nickname===factoryScope.team.player_2.nickname);
             }
             /**
-            * set_gridOptions
+            * private set_gridOptions
             *
             * @description set ng-grid gridOptionsTeam
             * @returns void
@@ -49,7 +49,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 };
             }
             /**
-            * set_addTeamData
+            * private set_addTeamData
             *
             * @description set new team
             * @returns void
@@ -66,7 +66,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 factoryScope.team = {teamname: '', player_1: '', player_2: '', id: 0};
             }
             /**
-            * set_addTeam
+            * public set_addTeam
             *
             * @description valided teamform and if ok run add func
             * @returns boolean if form not valid than false
@@ -93,7 +93,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return isok;
             }
             /**
-            * set_deleteTeam
+            * public set_deleteTeam
             *
             * @description valided team not in a active game and if ok delete
             * @returns boolean if team in a active game than false
@@ -117,7 +117,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 
             }
             /**
-            * set_init
+            * public set_init
             *
             * @description set default scope store
             * @returns void

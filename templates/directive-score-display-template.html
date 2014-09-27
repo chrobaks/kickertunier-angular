@@ -1,11 +1,2 @@
-<table>
-<tr>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-<td>6</td>
-<td>7</td>
-</tr>
-</table>
+<div class="item" ng-repeat="goal in goalsItemConf" ng-click="setGoal({team_id:0,goal_index:$index})" >{{goal.val}}</div>
+<div class="clearL"></div>

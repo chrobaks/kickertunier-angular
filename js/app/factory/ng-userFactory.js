@@ -6,7 +6,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             // STORE USER SCOPE
             var factoryScope = {};
             /**
-            * get_checkNicknameUnique
+            * private get_checkNicknameUnique
             *
             * @returns boolean if nickname not unique than false
             */
@@ -20,7 +20,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return r;
             }
             /**
-            * set_gridOptions
+            * private set_gridOptions
             *
             * @description set ng-grid gridOptionsUser
             * @returns void
@@ -38,7 +38,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 };
             }
             /**
-            * set_addUserData
+            * private set_addUserData
             *
             * @description set new user
             * @returns void
@@ -50,7 +50,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 factoryScope.user = {nickname: '', firstname: '', secondname: '', id: 0};
             }
             /**
-            * set_addUser
+            * public set_addUser
             *
             * @description valided userform and if ok run add func
             * @returns boolean if form not valid than false
@@ -71,7 +71,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return isok;
             }
             /**
-            * set_deleteUser
+            * public set_deleteUser
             *
             * @description valided user not in a team and if ok delete
             * @returns boolean if user in a team than false
@@ -95,7 +95,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 
             }
             /**
-            * set_init
+            * public set_init
             *
             * @description set default scope store
             * @returns void

@@ -6,7 +6,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             // STORE Game SCOPE
             var factoryScope = {};
             /**
-            * get_checkTeamNotDiff
+            * private get_checkTeamNotDiff
             *
             * @returns boolean if team_1.teamname is not same team_2.teamname than false
             */
@@ -14,7 +14,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return (factoryScope.game.team_1.teamname===factoryScope.game.team_2.teamname);
             }
             /**
-            * set_gridOptions
+            * private set_gridOptions
             *
             * @description set ng-grid gridOptionsTeam
             * @returns void
@@ -34,7 +34,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 };
             }
             /**
-            * set_addGameData
+            * private set_addGameData
             *
             * @description set new game data
             * @returns void
@@ -43,15 +43,16 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 var newgame = {
                     team_1: factoryScope.game.team_1.teamname, 
                     team_2: factoryScope.game.team_2.teamname,
-                    team_1_scores: 1,
+                    team_1_scores: 0,
                     team_2_scores: 0
                 };
                 factoryScope.gameActualTeamData = angular.copy(newgame);
                 factoryScope.game = {team_1: '', team_2: ''};
                 factoryScope.gameIsRunning = true;
+                set_gameScoreDisplayStyle("",false);
             }
             /**
-            * set_addGame
+            * public set_addGame
             *
             * @description valided gameform and if ok run add func
             * @returns boolean if form not valid than false
@@ -74,7 +75,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return isok;
             }
             /**
-            * set_deleteGame
+            * public set_deleteGame
             *
             * @description 
             * @returns boolean
@@ -91,19 +92,45 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 return true;
             }
             /**
-            * set_gameActualTeamData
+            * public set_gameActualTeamData
             *
             * @description set goal value
             * @returns void
             */
-            var set_gameActualTeamData = function(obj){
-                //console.log(obj.team_id)
-                //if(factoryScope.gameActualTeamData["team_"+obj.team_id+"_scores"]*1+1===factoryScope.goalsItemConf[obj.goal_index].val*1){
-                    //factoryScope.gameActualTeamData["team_"+obj.team_id+"_scores"] = factoryScope.goalsItemConf[obj.goal_index].val;
-                //}
+            var set_gameActualTeamData = function(domelement,obj){
+                if(factoryScope.activeDirectiveId !== "" && factoryScope.gameIsRunning === true){
+                    var teamnumber = factoryScope.activeDirectiveId*1+1;
+                    var goalid = obj.goal_index*1;
+                    var teamscore = factoryScope.gameActualTeamData["team_"+teamnumber+"_scores"]*1;
+                    var goalval = factoryScope.goalsItemConf[goalid].val*1;
+                    if(teamscore+1 === goalval){
+                        factoryScope.gameActualTeamData["team_"+teamnumber+"_scores"] = goalval;
+                        set_gameScoreDisplayStyle(domelement,true);
+                    }else if(teamscore === goalval){
+                        factoryScope.gameActualTeamData["team_"+teamnumber+"_scores"] -= 1;
+                        set_gameScoreDisplayStyle(domelement,false);
+                    }
+                }
             }
             /**
-            * set_init
+            * private set_gameScoreDisplay
+            *
+            * @description set scoreDisplay CSS
+            * @returns void
+            */
+            var set_gameScoreDisplayStyle = function(domelement,isactive){
+                if(domelement!==""){
+                    if(isactive){
+                        domelement.attributes.class.value += " active";
+                    }else{
+                        domelement.attributes.class.value = domelement.attributes.class.value.replace(" active",'');
+                    }
+                }else{
+                    angular.element("score-display").find("div.item").removeClass("active");
+                }
+            }
+            /**
+            * public set_init
             *
             * @description set default scope store
             * @returns void
