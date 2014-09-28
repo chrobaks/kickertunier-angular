@@ -50,6 +50,16 @@ angular.module('mainAppFactory', [])
         }
         return r;
     }
+    var get_teamid = function (teamname) {
+        var r = "";
+        for(var e in scopestor.teamscope.teamData){
+            if(scopestor.teamscope.teamData[e].teamname==teamname){
+                r=scopestor.teamscope.teamData[e].id;
+                break;
+            }
+        }
+        return r;
+    }
     var get_checkUserIsInTeam = function (userid) {
         var isin = false;
         var ncknm = get_nickname(userid);
@@ -124,6 +134,7 @@ angular.module('mainAppFactory', [])
         get_storeCheckUserIsInTeam: get_checkUserIsInTeam,
         get_storeUserData: get_userData,
         get_storeTeamData: get_teamData,
+        get_storeTeamId: get_teamid,
         get_storeCheckTeamIsInActiveGame: get_checkTeamIsInActiveGame,
         set_storeUserScope: set_userScope,
         set_storeTeamScope: set_teamScope,

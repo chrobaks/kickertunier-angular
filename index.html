@@ -87,7 +87,7 @@
     <div class="floatL" style="height: 500px;">
     <!-- START FORM GAME -->
         <div class="ng-scope" ng-controller="gameController">
-           <div class="box-label blue" ng-bind="headertitle"></div> 
+            <div class="box-label blue" ng-bind="headertitle"></div> 
             <div class="wrapper-box blue-light">
                 <form name="gameForm" ng-submit="addGame()" novalidate>
                     <p>
@@ -126,6 +126,8 @@
                 </form>
             </div>
             <div class="gridStyle" ng-grid="gridOptionsGame"></div>
+            <div class="box-label blue">Spiel-Tabelle</div> 
+            <div class="gridStyle" ng-grid="gridOptionsGameScore"></div>
         </div>
     <!-- END FORM GAME -->
     </div>

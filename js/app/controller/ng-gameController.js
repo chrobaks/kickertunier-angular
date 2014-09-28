@@ -10,9 +10,12 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             $scope.formmsg = "Neues Spiel starten";
             // SCOPE VAR gameteamdata stores all teams
             $scope.gameTeamData = [];
+            // SCOPE VAR gamescoredata stores games score list
+            $scope.gameScoreData = [];
             // SCOPE VAR gamedata stores all games
             $scope.gameData = [
-                {team_1: 'Musterteam', team_2: 'Vollenergie', id: 1}
+                {team_win: 'Ateam',team_1: 'Ateam', team_2: 'Vollenergie', result: '7 : 1', id: 1},
+                {team_win: 'Vollenergie',team_1: 'Ateam', team_2: 'Vollenergie', result: '3 : 7', id: 2}
             ];
             // SCOPE VAR gameactalteamdata store activ game
             $scope.gameActualTeamData = {
@@ -33,6 +36,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 {val:'6'},
                 {val:'7'}
             ];
+            // scoreDisplay ID
             $scope.activeDirectiveId = '';
             // ADD ACTIVE GAME
             $scope.addGame = function () {
