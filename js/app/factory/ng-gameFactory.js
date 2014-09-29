@@ -128,9 +128,28 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                     }
                     
                     if(gameHasWinner){
-                        set_gameWinner();
+                        if(MessageFactory.get_confirm("game_has_winner",factoryScope.gameActualTeamData["team_"+teamnumber])){
+                            set_gameWinner();
+                        }else{
+                            factoryScope.gameActualTeamData["team_"+teamnumber+"_scores"] -= 1;
+                            set_gameScoreDisplayStyle(domelement,false);
+                        }
                     }
                 }
+            }
+            /**
+            * private set_defaultGameActualTeamData
+            *
+            * @description set default scope GameActualTeamData
+            * @returns void
+            */
+            var set_defaultGameActualTeamData = function(){
+                factoryScope.gameActualTeamData = {
+                    team_1: 'Kein Team',
+                    team_2: 'Kein Team',
+                    team_1_scores: 0,
+                    team_2_scores: 0
+                };
             }
             /**
             * private set_gameWinner
@@ -147,16 +166,11 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                     id: factoryScope.autoId()
                 }
                 factoryScope.gameData.push(gamelist_arg);
-                factoryScope.gameActualTeamData = {
-                    team_1: 'Kein Team',
-                    team_2: 'Kein Team',
-                    team_1_scores: 0,
-                    team_2_scores: 0
-                };
-                factoryScope.gameIsRunning === false;
+                set_defaultGameActualTeamData();
                 set_gameScoreList();
                 set_gridOptions();
                 set_gameScoreDisplayStyle("",false);
+                factoryScope.gameIsRunning = false;
             }
             /**
             * private set_gameScoreDisplay
@@ -222,28 +236,14 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             * @returns void
             */
             var set_gameDataHasTeamCeck = function(){
-                var teams = [],teamsc = [],gamedata_new = [];
-                for( var e in factoryScope.gameData){
-                    if(teams.indexOf(factoryScope.gameData[e].team_1) == -1){
-                        teams.push(factoryScope.gameData[e].team_1);
-                    }
-                    if(teams.indexOf(factoryScope.gameData[e].team_2) == -1){
-                        teams.push(factoryScope.gameData[e].team_2);
-                    }
-                }
-                for(var t in factoryScope.gameTeamData){
-                    if(teams.indexOf(factoryScope.gameTeamData[t].teamname) !== -1){
-                        teamsc.push(factoryScope.gameTeamData[t].teamname);
-                    }
-                }
-                teams = teamsc;
+                var teams = StorageFactory.get_storeTeamName(0,'-a');
+                var gamedata_new = [];
                 for( var n in factoryScope.gameData){
                     if(teams.indexOf(factoryScope.gameData[n].team_1) !== -1  && teams.indexOf(factoryScope.gameData[n].team_2) !== -1 ){
                         gamedata_new.push(factoryScope.gameData[n]);
                     }
                 }
                 if(gamedata_new.length < factoryScope.gameData.length){
-                    console.log(teams.join(','));
                     factoryScope.gameData = gamedata_new;
                     set_gameScoreList();
                     set_gridOptions();
@@ -258,6 +258,7 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             var set_init = function(scope){
                 factoryScope = scope;
                 factoryScope.gameTeamData = StorageFactory.get_storeTeamData();
+                set_defaultGameActualTeamData();
                 set_gameScoreList();
                 set_gridOptions();
                 StorageFactory.set_storeGameScope(factoryScope);

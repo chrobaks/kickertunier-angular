@@ -54,3 +54,22 @@ ul {list-style: none;}
     background-color:#99cc00;
     color:#fff;
 }
+.wrapper-score-display-label {
+    padding-bottom: 10px;
+}
+.score-display-label {
+    padding-bottom: 5px;
+}
+.score-display-label-titel {
+    float: left;
+    width: 50px;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+.score-display-label-value {
+    float: left;
+    font-size: 0.7em;
+}
+.score-display-label-space {
+    clear: left;
+}

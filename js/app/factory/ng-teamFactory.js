@@ -72,25 +72,25 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             * @returns boolean if form not valid than false
             */
             var set_addTeam = function () {
-                var isok = true;
+                var actionOk = true;
                 if ( ! factoryScope.teamForm.$valid) {
                     MessageFactory.set_error("Alle Felder benötigen einen Eintrag!");
                     return false;  
                 }
                 if( ! get_checkTeamnameUnique()){
                     MessageFactory.set_error("Der Teamname existiert schon.");
-                    isok = false;
+                    actionOk = false;
                 }
                 if(get_checkPlayerNotDiff()){
                     MessageFactory.set_error("Ein Team benötigt zwei Mitspieler.");
                     factoryScope.team.player_2 = "";
-                    isok = false;
+                    actionOk = false;
                 }
                 
-                if(isok){
+                if(actionOk){
                     set_addTeamData();
                 }
-                return isok;
+                return actionOk;
             }
             /**
             * public set_deleteTeam
@@ -100,21 +100,23 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
             */
             var set_deleteTeam = function (id) {
                 var res = [];
+                var actionOk = false;
                 if(StorageFactory.get_storeCheckTeamIsInActiveGame(id)){
                     MessageFactory.set_error("Das Team befindet sich in einem aktivem Spiel und kann nicht gelöscht werden!");
-                    return false;
                 }else{
                     for(var e in factoryScope.teamData){
                         if(factoryScope.teamData[e].id != id){
                             res.push(factoryScope.teamData[e]);
                         }
                     }
+                    actionOk = true;
+                }
+                if(actionOk && MessageFactory.get_confirm("team_delete")){
                     factoryScope.teamData = res;
                     set_gridOptions();
                     StorageFactory.set_storeGameTeamDataScope(factoryScope.teamData);
-                    return true;
                 }
-                
+                return actionOk;
             }
             /**
             * public set_init

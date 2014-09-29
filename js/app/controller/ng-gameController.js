@@ -17,16 +17,12 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 {team_win: 'Ateam',team_1: 'Ateam', team_2: 'Vollenergie', result: '7 : 1', id: 1},
                 {team_win: 'Vollenergie',team_1: 'Ateam', team_2: 'Vollenergie', result: '3 : 7', id: 2}
             ];
-            // SCOPE VAR gameactalteamdata store activ game
-            $scope.gameActualTeamData = {
-                team_1: 'Kein Team',
-                team_2: 'Kein Team',
-                team_1_scores: 0,
-                team_2_scores: 0
-            };
+            // SCOPE VAR gameactualteamdata store activ game
+            $scope.gameActualTeamData = {};
             // SCOPE VAR gameisrunning stores game status
             $scope.gameIsRunning = false;
             // SCOPE VAR goalsconf stores goal item
+            // array.length is max goals pro game
             $scope.goalsItemConf = [
                 {val:'1'},
                 {val:'2'},
@@ -36,7 +32,8 @@ if(typeof GLOBAL__VARS__APP != "undefined" && typeof GLOBAL__VARS__APP.mainApp !
                 {val:'6'},
                 {val:'7'}
             ];
-            // scoreDisplay ID
+            // SCOPE VAR activeDirectiveId 
+            // contains activ scoreDisplay index
             $scope.activeDirectiveId = '';
             // ADD ACTIVE GAME
             $scope.addGame = function () {
