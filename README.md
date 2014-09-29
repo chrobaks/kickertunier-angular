@@ -1,7 +1,7 @@
-kickertunier-angular
+Kickertunier-UI with Angular.js
 ====================
 
-Tutorial-Application with Angular for beginner
+LearningByDoing-Application with Angular for Beginners
 
 used libarys
 
