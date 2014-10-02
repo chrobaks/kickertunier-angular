@@ -8,142 +8,18 @@
 </head>
 <body>
     <div class="floatL">
-    <!-- START FORM USER -->
-        <div class="ng-scope" ng-controller="userController">
-            <div class="box-label green" ng-bind="headertitle"></div> 
-            <div class="wrapper-box green-light">
-                <form name="userForm" ng-submit="addUser()" novalidate>
-                    <p>
-                        <input ng-model="user.firstname"
-                            ng-maxlength="30"
-                            required
-                            type="text"
-                            name="firstname" />
-                        <label>Vorname</label>
-                    </p>
-                    <p>
-                        <input ng-model='user.secondname'
-                            ng-maxlength="30"
-                            required
-                            type="text"
-                            name="secondname" />
-                        <label>Nachname</label>
-                    </p>
-                    <p>
-                        <input ng-model='user.nickname'
-                            ng-maxlength="30"
-                            required
-                            type="text"
-                            name="nickname" />
-                        <label>Nickname</label>
-                    </p>
-                    <p>
-                        <input type="submit" value="speichern" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg"></span>
-                    </p>
-                </form>
-            </div>
-            <div class="gridStyle" ng-grid="gridOptionsUser"></div>
-        </div>
-    <!-- END FORM USER -->
-    <!-- START FORM TEAM -->
-        <div class="ng-scope" ng-controller="teamController">
-           <div class="box-label green" ng-bind="headertitle"></div> 
-            <div class="wrapper-box green-light">
-                <form name="teamForm" ng-submit="addTeam()" novalidate>
-                    <p>
-                        <select ng-model='team.player_1'
-                                ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in teamUserData"
-                                name="player_1"><option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option></select>
-                        <label>Spieler 1</label>
-                    </p>
-                    <p>
-                        <select ng-model='team.player_2'
-                                ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in teamUserData"
-                                name="player_2"><option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option></select>
-                        <label>Spieler 2</label>
-                    </p>
-                    <p>
-                        <input ng-model='team.teamname'
-                            ng-required="true"
-                            ng-maxlength="30"
-                            required
-                            type="text"
-                            name="teamname" />
-                        <label>Teamname</label>
-                    </p>
-                    <p>
-                        <input type="submit" value="speichern" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg"></span>
-                    </p>
-                </form>
-            </div>
-            <div class="gridStyle" ng-grid="gridOptionsTeam"></div>
-        </div>
-    <!-- END FORM TEAM -->
+        <div ui-view="viewUser"></div>
+        <div ui-view="viewTeam"></div>
     </div>
     <div class="floatL" style="height: 500px;">
-    <!-- START FORM GAME -->
-        <div class="ng-scope" ng-controller="gameController">
-            <div class="box-label blue" ng-bind="headertitle"></div> 
-            <div class="wrapper-box blue-light">
-                <form name="gameForm" ng-submit="addGame()" novalidate>
-                    <p>
-                        
-                        <select ng-model='game.team_1'
-                                ng-required="true"
-                                ng-options="gameteam.teamname for gameteam in gameTeamData"
-                                name="team_1"><option ng-selected="selected" value="">-- Auswahl Team 1 --</option></select>
-                        <label>Team 1</label>
-                    </p>
-                    <p>
-                        <select ng-model='game.team_2'
-                                ng-required="true"
-                                ng-options="gameteam.teamname for gameteam in gameTeamData"
-                                name="team_2"><option ng-selected="selected" value="">-- Auswahl Team 2 --</option></select>
-                        <label>Team 2</label>
-                    </p>
-                    <p>
-                        <input type="submit" value="Spiel starten" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg"></span>
-                    </p>
-                    <div class="wrapper-score-display-label">
-                        <ul class="score-display-label">
-                            <li class="score-display-label-titel">Team 1</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1}}"></li>
-                            <li class="score-display-label-space"></li>
-                            <li class="score-display-label-titel">Tore</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1_scores}}"></li>
-                            <li class="score-display-label-space"></li>
-                        </ul>
-                        <score-display index="0" class="goal-display"></score-display>
-                    </div>
-                    <div class="wrapper-score-display-label">
-                        <ul class="score-display-label">
-                            <li class="score-display-label-titel">Team 2</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2}}"></li>
-                            <li class="score-display-label-space"></li>
-                            <li class="score-display-label-titel">Tore</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2_scores}}"></li>
-                            <li class="score-display-label-space"></li>
-                        </ul>
-                        <score-display index="1" class="goal-display"></score-display>
-                    </div>
-                </form>
-            </div>
-            <div class="gridStyle" ng-grid="gridOptionsGame"></div>
-            <div class="box-label blue">Spiel-Tabelle</div> 
-            <div class="gridStyle" ng-grid="gridOptionsGameScore"></div>
-        </div>
-    <!-- END FORM GAME -->
+        <div ui-view="viewGame"></div>
     </div>
     <div class="clearL"></div>
 <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none;}ng\:form{display:block;}</style>
 <script type="text/javascript" src="js/global/global.vars.js"></script>
 <script type="text/javascript" src="js/lib/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="js/lib/angular-ui-router.js"></script>
 <script type="text/javascript" src="js/lib/ng-grid.js"></script>
 <script type="text/javascript" src="js/app/mainApp.js"></script>
 <script type="text/javascript" src="js/app/factory/appFactory.js"></script>
