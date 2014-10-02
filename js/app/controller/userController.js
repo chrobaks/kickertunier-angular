@@ -1,10 +1,11 @@
 (function() {
     "use strict";
+    
     angular.module('mainApp').controller('userController', UserController);
 
     UserController.$inject = [
         '$scope',
-        'TeamFactory',
+        'UserFactory',
         'MessageFactory'
     ];
 

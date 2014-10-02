@@ -4,7 +4,6 @@
     angular.module('mainApp').factory('UserFactory', UserFactory);
 
     UserFactory.$inject = [
-        '$scope',
         'StorageFactory',
         'MessageFactory'
     ];

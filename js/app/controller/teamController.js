@@ -1,6 +1,7 @@
 (function() {
     "use strict";
-    angular.module('mainApp').controller('gameController', TeamController);
+    
+    angular.module('mainApp').controller('teamController', TeamController);
 
     TeamController.$inject = [
         '$scope',
